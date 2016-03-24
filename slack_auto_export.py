@@ -6,8 +6,6 @@ import os
 import sys
 import slacker
 import click
-import math, date
-
 
 class SlackAutoExport(object):
     def __init__(self, token, verbose=False):
@@ -44,48 +42,10 @@ class SlackAutoExport(object):
        # for channel_name in channels:
 	chname = raw_input("Enter the channel name ")
         channel_name = chname
-	#chid = input("Enter the channel id:")
-        #channel_id = chid
-        #for channel_name in channels:
 	channel_id = channels[channel_name]["id"]
         history[channel_name] = self._get_channel_history(channel_id)
         return history
 
- ######-----Staring--------########
- # Original block of code changes above
-    #def _get_channel_history(self, channel_id, request_pause_period=0.5):
-    #    latest = None
-    #    has_more = True
-    #    messages = []
-    #    while has_more:
-    #        m = self.slack.channels.history(
-    #            channel_id,
-    #            count=1000,
-    #            latest=latest
-    #        )
-    #        messages.extend(m.body['messages'])
-    #        if self.verbose:
-    #            print("{}: Retrieved {} messages".format(
-    #                self.__class__.__name__,
-    #                len(messages)
-    #            ))
-
-    #        latest = m.body['messages'][-1]['ts']
-    #        has_more = m.body["has_more"]
-    #        time.sleep(request_pause_period)
-    #    return messages
-
-
-    #def _get_history(self):
-    #    channels = self._get_channels_list()
-    #    history = {}
-    #    for channel_name in channels:
-    #        channel_id = channels[channel_name]["id"]
-    #        history[channel_name] = self._get_channel_history(channel_id)
-    #    return history
-
-
- ######----Finish--------########
     def _get_users(self):
         return {c["name"]: c for c in
                 self.slack.users.list().body["members"]}
